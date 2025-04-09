@@ -1,0 +1,99 @@
+artifact_path: model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.1
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.6.1
+metadata:
+  best_params:
+    base_score: null
+    booster: null
+    callbacks: null
+    colsample_bylevel: null
+    colsample_bynode: null
+    colsample_bytree: 0.8
+    device: null
+    early_stopping_rounds: null
+    enable_categorical: false
+    eval_metric: null
+    feature_types: null
+    feature_weights: null
+    gamma: null
+    grow_policy: null
+    importance_type: null
+    interaction_constraints: null
+    learning_rate: 0.05
+    max_bin: null
+    max_cat_threshold: null
+    max_cat_to_onehot: null
+    max_delta_step: null
+    max_depth: 8
+    max_leaves: null
+    min_child_weight: null
+    missing: .nan
+    monotone_constraints: null
+    multi_strategy: null
+    n_estimators: 300
+    n_jobs: null
+    num_parallel_tree: null
+    objective: reg:squarederror
+    random_state: 42
+    reg_alpha: null
+    reg_lambda: null
+    sampling_method: null
+    scale_pos_weight: null
+    subsample: 0.9
+    tree_method: null
+    validate_parameters: null
+    verbosity: null
+  metrics:
+    last_24_mae: 0.3154110601933798
+    last_7_rmse: 0.473332452364715
+    mae: 0.387375277743521
+    mape: 1.1985792542028086
+    rmse: 0.6920010745433499
+mlflow_version: 2.19.0
+model_size_bytes: 3618541
+model_uuid: 5ce915ba226e427cb855ac9db584f133
+run_id: b263e9dcb368416f86d7497e581326e5
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  serving_input_path: serving_input_example.json
+  type: dataframe
+signature:
+  inputs: '[{"type": "double", "name": "airTemperature", "required": true}, {"type":
+    "double", "name": "cloudCoverage", "required": true}, {"type": "double", "name":
+    "dewTemperature", "required": true}, {"type": "double", "name": "windDirection",
+    "required": true}, {"type": "double", "name": "windSpeed", "required": true},
+    {"type": "integer", "name": "hour", "required": true}, {"type": "integer", "name":
+    "day_of_week", "required": true}, {"type": "integer", "name": "month", "required":
+    true}, {"type": "long", "name": "is_weekend", "required": true}, {"type": "double",
+    "name": "Robin_office_Shirlene_lag_1", "required": true}, {"type": "double", "name":
+    "Robin_office_Shirlene_lag_2", "required": true}, {"type": "double", "name": "Robin_office_Shirlene_lag_3",
+    "required": true}, {"type": "double", "name": "Robin_office_Shirlene_lag_4", "required":
+    true}, {"type": "double", "name": "Robin_office_Shirlene_lag_24", "required":
+    true}, {"type": "double", "name": "Robin_office_Shirlene_lag_168", "required":
+    true}, {"type": "double", "name": "rolling_4_mean", "required": true}, {"type":
+    "double", "name": "rolling_4_std", "required": true}, {"type": "double", "name":
+    "rolling_24_mean", "required": true}, {"type": "double", "name": "rolling_24_std",
+    "required": true}, {"type": "double", "name": "rolling_168_mean", "required":
+    true}, {"type": "double", "name": "rolling_168_std", "required": true}, {"type":
+    "double", "name": "load_gradient", "required": true}, {"type": "double", "name":
+    "load_volatility_4h", "required": true}, {"type": "double", "name": "hour_sin",
+    "required": true}, {"type": "double", "name": "hour_cos", "required": true}, {"type":
+    "double", "name": "day_sin", "required": true}, {"type": "double", "name": "day_cos",
+    "required": true}, {"type": "boolean", "name": "is_business_day", "required":
+    true}, {"type": "integer", "name": "hours_since_work_start", "required": true}]'
+  outputs: '[{"type": "double", "name": "Robin_office_Shirlene", "required": true}]'
+  params: null
+utc_time_created: '2025-04-09 18:39:58.593425'

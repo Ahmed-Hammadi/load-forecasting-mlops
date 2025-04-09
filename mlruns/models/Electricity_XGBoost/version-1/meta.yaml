@@ -1,14 +1,14 @@
 aliases: []
-creation_timestamp: 1744219006100
+creation_timestamp: 1744224001973
 current_stage: None
 description: null
-last_updated_timestamp: 1744219006100
+last_updated_timestamp: 1744224001973
 name: Electricity_XGBoost
-run_id: 25263ae43b2c4a879661a394a9a27dca
+run_id: b263e9dcb368416f86d7497e581326e5
 run_link: null
-source: file:c:/Users/hammadi/Desktop/pfa 1/mlruns/0/25263ae43b2c4a879661a394a9a27dca/artifacts/model
+source: file:c:/Users/hammadi/Desktop/pfa 1/mlruns/0/b263e9dcb368416f86d7497e581326e5/artifacts/model
 status: READY
 status_message: null
-storage_location: file:c:/Users/hammadi/Desktop/pfa 1/mlruns/0/25263ae43b2c4a879661a394a9a27dca/artifacts/model
+storage_location: file:c:/Users/hammadi/Desktop/pfa 1/mlruns/0/b263e9dcb368416f86d7497e581326e5/artifacts/model
 user_id: null
 version: 1

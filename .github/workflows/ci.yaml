@@ -13,31 +13,16 @@ jobs:
           miniconda-version: "py38_4.12.0"
           python-version: 3.8
           auto-activate-base: false
-          auto-update-conda: false  # Disable to prevent unexpected updates
+          activate-environment: forecasting-env  # Critical change
+          environment-file: conda.yaml
+          auto-update-conda: false
 
-      - name: Configure Conda channels
+      - name: Verify environment creation
         shell: bash -l {0}
         run: |
-          conda config --add channels conda-forge
-          conda config --add channels defaults
-          conda config --set restore_free_channel true
-          conda config --set remote_read_timeout_secs 120
-          conda config --set remote_connect_timeout_secs 120
-
-      - name: Clean existing environment
-        shell: bash -l {0}
-        run: |
-          conda env remove -n forecasting-env --yes || true
-          conda clean --all --yes
-
-      - name: Create environment with retries
-        shell: bash -l {0}
-        run: |
-          for i in {1..3}; do
-            conda env create -n forecasting-env -f conda.yaml && break
-            echo "Attempt $i failed, retrying in 15 seconds..."
-            sleep 15
-          done
+          conda info --envs
+          conda list -n forecasting-env
+          ls -la $CONDA_PREFIX
 
       - name: Run MLflow Project
         shell: bash -l {0}
