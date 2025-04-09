@@ -14,17 +14,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Set up Conda
+        uses: conda-incubator/setup-miniconda@v2
         with:
-          python-version: '3.9'
+          environment-file: conda.yaml  # Ensure this points to your environment file
+          activate-environment: mlflow-env  # Update to the environment name defined in conda.yaml
 
       - name: Set up dependencies
         run: |
-          python -m pip install --upgrade pip
+          # If any additional dependencies need installation or updating, you can handle them here
           pip install -r requirements.txt
           pip install mlflow
 
       - name: Run MLflow Project
         run: |
+          # Ensure the environment is properly set up using `conda run`
+          export MLFLOW_CONDA_RUN_COMMAND="conda run --no-capture-output -n mlflow-env"  # Replace `mlflow-env` with your environment name
+          
+          # Run the MLflow project with the provided entry point and parameters
           mlflow run . -e main -P config=config/config.yaml -P run_name="ci_run_${{ github.run_number }}"
