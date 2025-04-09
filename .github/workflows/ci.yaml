@@ -7,29 +7,26 @@ on:
   workflow_dispatch: # allows manual trigger
 
 jobs:
-  train:
+  test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Conda
+      - uses: actions/checkout@v2
+      
+      - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v2
         with:
-          environment-file: conda.yaml  # Ensure this points to your environment file
-          activate-environment: mlflow-env  # Update to the environment name defined in conda.yaml
+          auto-update-conda: true
+          python-version: 3.8
+          activate-environment: forecasting-env
 
-      - name: Set up dependencies
+      - name: Create Conda environment
+        shell: bash -l {0}
         run: |
-          # If any additional dependencies need installation or updating, you can handle them here
-          pip install -r requirements.txt
-          pip install mlflow
-
-      - name: Run MLflow Project
-        run: |
-          # Ensure the environment is properly set up using `conda run`
-          export MLFLOW_CONDA_RUN_COMMAND="conda run --no-capture-output -n mlflow-env"  # Replace `mlflow-env` with your environment name
+          conda env create -f conda.yaml
           
-          # Run the MLflow project with the provided entry point and parameters
-          mlflow run . -e main -P config=config/config.yaml -P run_name="ci_run_${{ github.run_number }}"
+      - name: Run MLflow project
+        shell: bash -l {0}
+        run: |
+          mlflow run . \
+            --experiment-name github_ci \
+            --run-name ci_run_${{ github.run_number }}

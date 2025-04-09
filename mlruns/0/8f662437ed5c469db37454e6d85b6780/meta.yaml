@@ -1,0 +1,15 @@
+artifact_uri: file:c:/Users/hammadi/Desktop/pfa 1/mlruns/0/8f662437ed5c469db37454e6d85b6780/artifacts
+end_time: 1744219006156
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 8f662437ed5c469db37454e6d85b6780
+run_name: forecasting_run
+run_uuid: 8f662437ed5c469db37454e6d85b6780
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744218838204
+status: 3
+tags: []
+user_id: hammadi
