@@ -7,27 +7,42 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Miniconda
+      - name: Set up Miniconda with Mamba
         uses: conda-incubator/setup-miniconda@v2.1.1
         with:
           miniconda-version: "py38_4.12.0"
-          python-version: 3.8
+          python-version: "3.8"
           auto-activate-base: false
-          activate-environment: forecasting-env  # Critical change
           environment-file: conda.yaml
+          use-mamba: true  # Faster dependency resolution
+          mamba-version: "*"
+          channel-priority: strict
           auto-update-conda: false
 
-      - name: Verify environment creation
+      - name: Force environment recreation
+        shell: bash -l {0}
+        run: |
+          conda activate forecasting-env || true
+          conda remove -n forecasting-env --all --yes || true
+          conda clean --all --yes
+
+      - name: Create environment with verbose logging
+        shell: bash -l {0}
+        run: |
+          conda env create -n forecasting-env -f conda.yaml --verbose
+          conda init --all
+
+      - name: Verify environment
         shell: bash -l {0}
         run: |
           conda info --envs
           conda list -n forecasting-env
-          ls -la $CONDA_PREFIX
+          python -c "import pandas, numpy, xgboost; print('Dependencies OK')"
 
       - name: Run MLflow Project
         shell: bash -l {0}
         run: |
           conda activate forecasting-env
           mlflow run . \
-            --experiment-name github-ci \
-            --run-name ci_run_${{ github.run_number }}
+            --experiment-name production \
+            --run-name build_${{ github.run_number }}
