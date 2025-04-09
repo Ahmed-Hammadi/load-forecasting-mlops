@@ -1,0 +1,15 @@
+artifact_uri: file:c:/Users/hammadi/Desktop/pfa 1/mlruns/0/a82a121247c8444fb564a45fc90a60dc/artifacts
+end_time: 1744198240194
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a82a121247c8444fb564a45fc90a60dc
+run_name: XGBoost
+run_uuid: a82a121247c8444fb564a45fc90a60dc
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744198226826
+status: 3
+tags: []
+user_id: hammadi

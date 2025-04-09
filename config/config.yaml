@@ -1,0 +1,31 @@
+data:
+  path: "data/electricity.csv"
+  target_column: "Robin_office_Shirlene"
+  timestamp_column: "timestamp"
+  columns_to_drop: ["precipDepth6HR", "seaLvlPressure"]
+
+features:
+  lags: [1, 2, 3, 4, 24, 168]             # Added immediate 1-4h lags
+  rolling_windows: [4, 24, 168]             # 4h rolling window for recent patterns
+
+models:
+  common:
+    random_state: 42
+  RandomForest:
+    n_estimators: 300  # Increase from 200
+    max_depth: 15       # Increase from 12
+    min_samples_leaf: 3 # Add for overfitting control
+
+  XGBoost:
+    n_estimators: 300
+    max_depth: 8
+    learning_rate: 0.05
+    early_stopping_rounds: 15
+    subsample: 0.9
+    colsample_bytree: 0.8
+
+validation:
+  n_splits: 5
+
+mlflow:
+  experiment_name: "Default"

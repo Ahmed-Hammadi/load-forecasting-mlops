@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1744198240181
+current_stage: None
+description: null
+last_updated_timestamp: 1744198240181
+name: Electricity_XGBoost
+run_id: a82a121247c8444fb564a45fc90a60dc
+run_link: null
+source: file:c:/Users/hammadi/Desktop/pfa 1/mlruns/0/a82a121247c8444fb564a45fc90a60dc/artifacts/model
+status: READY
+status_message: null
+storage_location: file:c:/Users/hammadi/Desktop/pfa 1/mlruns/0/a82a121247c8444fb564a45fc90a60dc/artifacts/model
+user_id: null
+version: 1

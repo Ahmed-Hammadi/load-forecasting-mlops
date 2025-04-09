@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1744198226802
+current_stage: None
+description: null
+last_updated_timestamp: 1744198226802
+name: Electricity_RandomForest
+run_id: 58a71efcf81645c99763215c99e2c4cc
+run_link: null
+source: file:c:/Users/hammadi/Desktop/pfa 1/mlruns/0/58a71efcf81645c99763215c99e2c4cc/artifacts/model
+status: READY
+status_message: null
+storage_location: file:c:/Users/hammadi/Desktop/pfa 1/mlruns/0/58a71efcf81645c99763215c99e2c4cc/artifacts/model
+user_id: null
+version: 1
