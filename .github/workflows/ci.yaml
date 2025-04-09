@@ -1,32 +1,30 @@
-name: Train Model with MLflow
-
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch: # allows manual trigger
+name: CI Pipeline
+on: [push]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v2
         with:
-          auto-update-conda: true
           python-version: 3.8
-          activate-environment: forecasting-env
+          auto-activate-base: false
+          miniconda-version: "latest"
+          environment-file: conda.yaml
 
-      - name: Create Conda environment
+      - name: Update Conda environment
         shell: bash -l {0}
         run: |
-          conda env create -f conda.yaml
+          conda config --set always_yes yes --set changeps1 no
+          conda env update -n forecasting-env -f conda.yaml --prune
           
-      - name: Run MLflow project
+      - name: Run MLflow Project
         shell: bash -l {0}
         run: |
+          conda activate forecasting-env
           mlflow run . \
-            --experiment-name github_ci \
+            --experiment-name github-ci \
             --run-name ci_run_${{ github.run_number }}

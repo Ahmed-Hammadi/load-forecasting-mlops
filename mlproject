@@ -1,9 +1,4 @@
-# MLproject
 name: Electricity_Demand_Forecasting
-
-docker_env:
-  image: continuumio/miniconda3:latest
-
 conda_env: conda.yaml
 
 entry_points:
