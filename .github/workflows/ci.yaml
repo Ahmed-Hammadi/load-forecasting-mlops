@@ -5,22 +5,36 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Miniconda
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v2.1.1
         with:
+          miniconda-version: "py38_4.12.0"
           python-version: 3.8
           auto-activate-base: false
-          miniconda-version: "latest"
-          environment-file: conda.yaml
+          auto-update-conda: true
+          activate-environment: forecasting-env
 
-      - name: Update Conda environment
+      - name: Network connectivity check
+        shell: bash
+        run: |
+          ping -c 3 repo.anaconda.com
+          curl -I https://repo.anaconda.com
+          nslookup repo.anaconda.com
+
+      - name: Clean existing environment
         shell: bash -l {0}
         run: |
-          conda config --set always_yes yes --set changeps1 no
-          conda env update -n forecasting-env -f conda.yaml --prune
-          
+          conda env remove -n forecasting-env --yes || true
+          conda clean --all --yes
+
+      - name: Create Conda environment
+        shell: bash -l {0}
+        run: |
+          conda env create -n forecasting-env -f conda.yaml --force
+          conda init bash
+
       - name: Run MLflow Project
         shell: bash -l {0}
         run: |
