@@ -1,9 +1,10 @@
-name: Electricity_Demand_Forecasting
+name: Office time series load forecasting short term
+
 conda_env: conda.yaml
 
 entry_points:
   main:
     parameters:
-      config: {type: str, default: "config/config.yaml"}
+      config: {type: str, default: "config.yaml"}
       run_name: {type: str, default: "default_run"}
     command: "python src/train_model.py --config {config} --run_name {run_name}"

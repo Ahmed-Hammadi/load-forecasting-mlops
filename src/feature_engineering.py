@@ -31,8 +31,8 @@ def add_load_dynamics(df: pd.DataFrame, target_column: str) -> pd.DataFrame:
     df["load_volatility_4h"] = df[target_column].rolling(window=4, min_periods=1).std()
     return df
 
-def add_operational_context(df: pd.DataFrame) -> pd.DataFrame:
-    df["is_business_day"] = df["timestamp"].dt.weekday < 5
+def add_operational_context(df: pd.DataFrame, timestamp_column: str = "timestamp") -> pd.DataFrame:
+    df["is_business_day"] = df[timestamp_column].dt.weekday < 5
     df["hours_since_work_start"] = np.where(
         (df["is_business_day"]) & (df["hour"] >= 8),
         df["hour"] - 8,
@@ -44,7 +44,8 @@ def apply_feature_engineering(
     df: pd.DataFrame,
     target_column: str,
     lags: Optional[List[int]] = None,
-    windows: Optional[List[int]] = None
+    windows: Optional[List[int]] = None,
+    timestamp_column: str = "timestamp"
 ) -> pd.DataFrame:
     try:
         logger.info("Starting feature engineering")
@@ -56,10 +57,9 @@ def apply_feature_engineering(
         df = add_rolling_features(df, target_column, windows)
         df = add_load_dynamics(df, target_column)
         df = add_cyclical_features(df)
-        df = add_operational_context(df)
-
-        df = df.fillna(method='ffill').bfill()
-        df = df.drop(columns=["timestamp"], errors="ignore")
+        df = add_operational_context(df, timestamp_column=timestamp_column)
+        df = df.ffill().bfill()
+        df = df.drop(columns=[timestamp_column], errors="ignore")
 
         logger.info(f"Feature engineering complete. Final shape: {df.shape}")
         return df

@@ -1,0 +1,2 @@
+sqm     sqft    Location
+4647    50020   London,Europe

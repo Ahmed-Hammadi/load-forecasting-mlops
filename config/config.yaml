@@ -2,7 +2,7 @@ data:
   path: "data/electricity.csv"
   target_column: "Robin_office_Shirlene"
   timestamp_column: "timestamp"
-  columns_to_drop: ["precipDepth6HR", "seaLvlPressure"]
+  columns_to_drop: ["precipDepth6HR", "seaLvlPressure", "windSpeed", "windDirection","cloudCoverage"]
 
 features:
   lags: [1, 2, 3, 4, 24, 168]             # Added immediate 1-4h lags
@@ -26,6 +26,17 @@ models:
 
 validation:
   n_splits: 5
+  forecast_horizon: 24  # New parameter
 
 mlflow:
-  experiment_name: "Default"
+  tracking_uri: "sqlite:///mlflow.db" 
+  experiment_name: "Default"  
+
+
+register_model:
+  stage: "Staging"   # Change to "Production" as needed
+
+promotion_criteria:
+  mape_threshold: 20
+  min_improvement: 5           # Percent improvement over previous production
+  max_std_mae: 1.0             # Maximum allowed standard deviation of MAE
